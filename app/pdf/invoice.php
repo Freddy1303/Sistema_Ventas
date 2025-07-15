@@ -152,21 +152,21 @@
 			$pdf->Cell(15,7,iconv("UTF-8", "ISO-8859-1",''),'T',0,'C');
 
 		$pdf->Cell(32,7,iconv("UTF-8", "ISO-8859-1",'TOTAL A PAGAR'),'T',0,'C');
-		$pdf->Cell(34,7,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR).' '.MONEDA_NOMBRE),'T',0,'C');
+		$pdf->Cell(34,7,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),'T',0,'C');
 
 		$pdf->Ln(7);
 
 		$pdf->Cell(100,7,iconv("UTF-8", "ISO-8859-1",''),'',0,'C');
 		$pdf->Cell(15,7,iconv("UTF-8", "ISO-8859-1",''),'',0,'C');
 		$pdf->Cell(32,7,iconv("UTF-8", "ISO-8859-1",'TOTAL PAGADO'),'',0,'C');
-		$pdf->Cell(34,7,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_pagado'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR).' '.MONEDA_NOMBRE),'',0,'C');
+		$pdf->Cell(34,7,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_pagado'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),'',0,'C');
 
 		$pdf->Ln(7);
 
 		$pdf->Cell(100,7,iconv("UTF-8", "ISO-8859-1",''),'',0,'C');
 		$pdf->Cell(15,7,iconv("UTF-8", "ISO-8859-1",''),'',0,'C');
 		$pdf->Cell(32,7,iconv("UTF-8", "ISO-8859-1",'CAMBIO'),'',0,'C');
-		$pdf->Cell(34,7,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_cambio'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR).' '.MONEDA_NOMBRE),'',0,'C');
+		$pdf->Cell(34,7,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_cambio'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),'',0,'C');
 
 		$pdf->Ln(12);
 
@@ -177,12 +177,7 @@
 
 		$pdf->Ln(9);
 
-		$pdf->SetFillColor(39,39,51);
-		$pdf->SetDrawColor(23,83,201);
-        $pdf->Code128(72,$pdf->GetY(),$datos_venta['venta_codigo'],70,20);
-        $pdf->SetXY(12,$pdf->GetY()+21);
-        $pdf->SetFont('Arial','',12);
-        $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1",$datos_venta['venta_codigo']),0,'C',false);
+		
 
 		$pdf->Output("I","Factura_Nro".$datos_venta['venta_id'].".pdf",true);
 

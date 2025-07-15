@@ -3,6 +3,8 @@
 	require_once "../../config/app.php";
 	require_once "../views/inc/session_start.php";
 	require_once "../../autoload.php";
+	error_reporting(0); // ← para desactivar errores visibles que rompen JSON
+
 	
 	use app\controllers\productController;
 
@@ -29,6 +31,12 @@
 		if($_POST['modulo_producto']=="actualizarFoto"){
 			echo $insProducto->actualizarFotoProductoControlador();
 		}
+		if($_POST['modulo_producto'] == "agregar_stock"){
+			echo $insProducto->agregarStockProductoControlador();
+			exit();
+		}
+
+
 		
 	}else{
 		session_destroy();

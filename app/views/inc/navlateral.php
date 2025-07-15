@@ -37,7 +37,7 @@
 					</a>
 				</li>
 
-				<li class="full-width divider-menu-h"></li>
+				<!--<li class="full-width divider-menu-h"></li>
 
 				<li class="full-width">
 					<a href="#" class="full-width btn-subMenu">
@@ -81,7 +81,7 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li>-->
 
 				<li class="full-width divider-menu-h"></li>
 

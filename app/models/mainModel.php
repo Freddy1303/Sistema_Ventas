@@ -29,7 +29,35 @@
 			$sql->execute();
 			return $sql;
 		}
-
+		/*----------  Funcion balance mensual  ----------*/
+		public function balance_mensual(){
+			$sql = $this->conectar()->prepare("
+				SELECT 
+					DATE_FORMAT(venta.venta_fecha, '%Y-%m') AS mes,
+					SUM(venta_detalle_precio_venta * venta_detalle_cantidad) AS ingresos,
+					SUM(venta_detalle_precio_compra * venta_detalle_cantidad) AS costos
+				FROM venta_detalle
+				INNER JOIN venta ON venta.venta_codigo = venta_detalle.venta_codigo
+				GROUP BY mes
+				ORDER BY mes ASC
+				LIMIT 6
+			");
+			$sql->execute();
+			return $sql;
+		}
+		/*----------  Funcion productos bajo stock  ----------*/
+		public function productos_bajo_stock($limite = 3){
+			$consulta = $this->conectar()->prepare("
+				SELECT producto_nombre, producto_stock_total, producto_codigo 
+				FROM producto 
+				WHERE producto_stock_total <= :limite 
+				ORDER BY producto_stock_total ASC 
+				LIMIT 10
+			");
+			$consulta->bindParam(":limite", $limite, PDO::PARAM_INT);
+			$consulta->execute();
+			return $consulta;
+		}
 
 		/*----------  Funcion limpiar cadenas  ----------*/
 		public function limpiarCadena($cadena){

@@ -76,12 +76,12 @@
 				  	<input class="input" type="text" name="producto_marca" value="<?php echo $datos['producto_marca']; ?>" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,30}" maxlength="30" >
 				</div>
 		  	</div>
-		  	<div class="column">
+		  	<!--<div class="column">
 		    	<div class="control">
 					<label>Modelo</label>
 				  	<input class="input" type="text" name="producto_modelo" value="<?php echo $datos['producto_modelo']; ?>" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,30}" maxlength="30" >
 				</div>
-		  	</div>
+		  	</div>-->
 		  	<div class="column">
 		    	<div class="control">
 					<label>Presentación del producto <?php echo CAMPO_OBLIGATORIO; ?></label><br>

@@ -763,10 +763,11 @@
 				}
 
 				$alerta=[
-					"tipo"=>"recargar",
+					"tipo"=>"redireccionar",
 					"titulo"=>"Usuario actualizado",
 					"texto"=>"Los datos del usuario ".$datos['usuario_nombre']." ".$datos['usuario_apellido']." se actualizaron correctamente",
-					"icono"=>"success"
+					"icono"=>"success",
+					"url"=>APP_URL."userList/"
 				];
 			}else{
 				$alerta=[

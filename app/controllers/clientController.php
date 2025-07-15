@@ -656,10 +656,11 @@
 
 			if($this->actualizarDatos("cliente",$cliente_datos_up,$condicion)){
 				$alerta=[
-					"tipo"=>"recargar",
+					"tipo"=>"redireccionar",
 					"titulo"=>"Cliente actualizado",
 					"texto"=>"Los datos del cliente ".$datos['cliente_nombre']." ".$datos['cliente_apellido']." se actualizaron correctamente",
-					"icono"=>"success"
+					"icono"=>"success",
+					"url"=>APP_URL."clientList/"
 				];
 			}else{
 				$alerta=[

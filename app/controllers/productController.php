@@ -11,18 +11,16 @@
 			# Almacenando datos#
 		    $codigo=$this->limpiarCadena($_POST['producto_codigo']);
 		    $nombre=$this->limpiarCadena($_POST['producto_nombre']);
-
 		    $precio_compra=$this->limpiarCadena($_POST['producto_precio_compra']);
 		    $precio_venta=$this->limpiarCadena($_POST['producto_precio_venta']);
 		    $stock=$this->limpiarCadena($_POST['producto_stock']);
-
 		    $marca=$this->limpiarCadena($_POST['producto_marca']);
-		    $modelo=$this->limpiarCadena($_POST['producto_modelo']);
+
 		    $unidad=$this->limpiarCadena($_POST['producto_unidad']);
 		    $categoria=$this->limpiarCadena($_POST['producto_categoria']);
 
 		    # Verificando campos obligatorios #
-            if($codigo=="" || $nombre=="" || $precio_compra=="" || $precio_venta=="" || $stock==""){
+            if($codigo=="" || $nombre=="" || $precio_compra=="" || $precio_venta=="" || $stock=="" || $marca==""){
             	$alerta=[
 					"tipo"=>"simple",
 					"titulo"=>"Ocurrió un error inesperado",
@@ -102,18 +100,7 @@
 			    }
 		    }
 
-		    if($modelo!=""){
-		    	if($this->verificarDatos("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,30}",$modelo)){
-			    	$alerta=[
-						"tipo"=>"simple",
-						"titulo"=>"Ocurrió un error inesperado",
-						"texto"=>"El MODELO no coincide con el formato solicitado",
-						"icono"=>"error"
-					];
-					return json_encode($alerta);
-			        exit();
-			    }
-		    }
+		   
 
 		    # Comprobando presentacion del producto #
 			if(!in_array($unidad, PRODUCTO_UNIDAD)){
@@ -328,11 +315,6 @@
 					"campo_valor"=>$marca
 				],
 				[
-					"campo_nombre"=>"producto_modelo",
-					"campo_marcador"=>":Modelo",
-					"campo_valor"=>$modelo
-				],
-				[
 					"campo_nombre"=>"producto_estado",
 					"campo_marcador"=>":Estado",
 					"campo_valor"=>"Habilitado"
@@ -352,19 +334,19 @@
 			$registrar_producto=$this->guardarDatos("producto",$producto_datos_reg);
 
 			if($registrar_producto->rowCount()==1){
+				error_log("✅ Producto registrado exitosamente"); // esto lo verás en error_log
 				$alerta=[
 					"tipo"=>"limpiar",
 					"titulo"=>"Producto registrado",
-					"texto"=>"El producto ".$nombre." se registro con exito",
+					"texto"=>"El producto ".$nombre." se registró con éxito",
 					"icono"=>"success"
 				];
-			}else{
-				
+			} else {
+				error_log("❌ Falló el registro, eliminando imagen si existe...");
 				if(is_file($img_dir.$foto)){
-		            chmod($img_dir.$foto,0777);
-		            unlink($img_dir.$foto);
-		        }
-
+					chmod($img_dir.$foto,0777);
+					unlink($img_dir.$foto);
+				}
 				$alerta=[
 					"tipo"=>"simple",
 					"titulo"=>"Ocurrió un error inesperado",
@@ -375,6 +357,48 @@
 
 			return json_encode($alerta);
 		}
+
+		/*----------  Controlador actualizar stock producto  ----------*/
+		public function agregarStockProductoControlador(){
+			$id = $this->limpiarCadena($_POST['producto_id']);
+			$cantidad = $this->limpiarCadena($_POST['cantidad']);
+
+			$stmt = $this->ejecutarConsulta("SELECT producto_stock_total FROM producto WHERE producto_id = '$id'");
+
+			if($stmt && $stmt->rowCount() > 0){
+				$actual = (int) $stmt->fetchColumn();
+				$nuevo_stock = $actual + (int)$cantidad;
+
+				$actualizar = $this->ejecutarConsulta("UPDATE producto SET producto_stock_total = '$nuevo_stock' WHERE producto_id = '$id'");
+
+				if($actualizar->rowCount() == 1){
+					$alerta=[
+						"tipo" => "recargar", 
+						"titulo" => "Stock actualizado",
+						"texto"  => "El stock se ha incrementado correctamente",
+						"icono"   => "success"
+					];
+					return json_encode($alerta);
+				} else {
+					$alerta=[
+						"tipo" => "simple",
+						"titulo" => "Error",
+						"texto"  => "No se pudo actualizar el stock",
+						"icono"   => "error"
+					];
+					return json_encode($alerta);
+				}
+			} else {
+				$alerta=[
+					"tipo" => "simple",
+					"titulo" => "Error",
+					"texto"  => "Producto no encontrado",
+					"icono"   => "error"
+				];
+				return json_encode($alerta);
+			}
+		}
+
 
 
 		/*----------  Controlador listar producto  ----------*/
@@ -460,6 +484,13 @@
 		                        <a href="'.APP_URL.'productUpdate/'.$rows['producto_id'].'/" class="button is-success is-rounded is-small">
 		                        	<i class="fas fa-sync fa-fw"></i>
 		                        </a>
+								
+								<a href="#" class="button is-warning is-rounded is-small btn-agregar-stock" 
+									data-id="'.$rows['producto_id'].'" 
+									data-nombre="'.$rows['producto_nombre'].'">
+									<i class="fas fa-plus fa-fw"></i>
+								</a>
+
 
 		                        <form class="FormularioAjax is-inline-block" action="'.APP_URL.'app/ajax/productoAjax.php" method="POST" autocomplete="off" >
 
@@ -600,7 +631,6 @@
 		    $stock=$this->limpiarCadena($_POST['producto_stock']);
 
 		    $marca=$this->limpiarCadena($_POST['producto_marca']);
-		    $modelo=$this->limpiarCadena($_POST['producto_modelo']);
 		    $unidad=$this->limpiarCadena($_POST['producto_unidad']);
 		    $categoria=$this->limpiarCadena($_POST['producto_categoria']);
 
@@ -685,18 +715,6 @@
 			    }
 		    }
 
-		    if($modelo!=""){
-		    	if($this->verificarDatos("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,30}",$modelo)){
-			    	$alerta=[
-						"tipo"=>"simple",
-						"titulo"=>"Ocurrió un error inesperado",
-						"texto"=>"El MODELO no coincide con el formato solicitado",
-						"icono"=>"error"
-					];
-					return json_encode($alerta);
-			        exit();
-			    }
-		    }
 
 		    # Comprobando presentacion del producto #
 			if(!in_array($unidad, PRODUCTO_UNIDAD)){
@@ -843,11 +861,6 @@
 					"campo_valor"=>$marca
 				],
 				[
-					"campo_nombre"=>"producto_modelo",
-					"campo_marcador"=>":Modelo",
-					"campo_valor"=>$modelo
-				],
-				[
 					"campo_nombre"=>"categoria_id",
 					"campo_marcador"=>":Categoria",
 					"campo_valor"=>$categoria
@@ -862,11 +875,13 @@
 
 			if($this->actualizarDatos("producto",$producto_datos_up,$condicion)){
 				$alerta=[
-					"tipo"=>"recargar",
+					"tipo"=>"redireccionar",
 					"titulo"=>"Producto actualizado",
 					"texto"=>"Los datos del producto '".$datos['producto_nombre']."' se actualizaron correctamente",
-					"icono"=>"success"
+					"icono"=>"success",
+					"url"=> APP_URL."productList/",
 				];
+				return json_encode($alerta);
 			}else{
 				$alerta=[
 					"tipo"=>"simple",
@@ -874,9 +889,10 @@
 					"texto"=>"No hemos podido actualizar los datos del producto '".$datos['producto_nombre']."', por favor intente nuevamente",
 					"icono"=>"error"
 				];
+				return json_encode($alerta);
 			}
 
-			return json_encode($alerta);
+	
 		}
 
 
@@ -895,7 +911,6 @@
 					"icono"=>"error"
 				];
 				return json_encode($alerta);
-		        exit();
 		    }else{
 		    	$datos=$datos->fetch();
 		    }

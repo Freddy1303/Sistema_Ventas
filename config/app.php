@@ -5,15 +5,14 @@
 	const APP_SESSION_NAME="POS";
 
 	/*----------  Tipos de documentos  ----------*/
-	const DOCUMENTOS_USUARIOS=["DUI","DNI","Cedula","Licencia","Pasaporte","Otro"];
+	const DOCUMENTOS_USUARIOS=["RUC","DNI","Otro"];
 
 
 	/*----------  Tipos de unidades de productos  ----------*/
-	const PRODUCTO_UNIDAD=["Unidad","Libra","Kilogramo","Caja","Paquete","Lata","Galon","Botella","Tira","Sobre","Bolsa","Saco","Tarjeta","Otro"];
+	const PRODUCTO_UNIDAD=["Unidad","Pieza","Par","Juego","Otro"];
 
 	/*----------  Configuración de moneda  ----------*/
-	const MONEDA_SIMBOLO="$";
-	const MONEDA_NOMBRE="USD";
+	const MONEDA_SIMBOLO="S/.";
 	const MONEDA_DECIMALES="2";
 	const MONEDA_SEPARADOR_MILLAR=",";
 	const MONEDA_SEPARADOR_DECIMAL=".";

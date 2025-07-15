@@ -1,9 +1,11 @@
 <div class="container is-fluid mb-6">
-	<h1 class="title">Ventas</h1>
-	<h2 class="subtitle"><i class="fas fa-cart-plus fa-fw"></i> &nbsp; Nueva venta</h2>
+	<h1 class="title is-3 has-text-weight-bold has-text-primary">
+        <i class="fas fa-cart-plus fa-fw"></i> &nbsp;Nueva venta
+    </h1>
 </div>
 
 <div class="container pb-6 pt-6">
+    <div class="box" style="background-color: #faf4f4ff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 12px;">
     <?php
         $check_empresa=$insLogin->seleccionarDatos("Normal","empresa LIMIT 1","*",0);
 
@@ -13,14 +15,14 @@
     <div class="columns">
 
         <div class="column pb-6">
-
+            <div class="box" style="background-color: #ecececff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 12px;">
             <p class="has-text-centered pt-6 pb-6">
                 <small>Para agregar productos debe de digitar el código de barras en el campo "Código de producto" y luego presionar &nbsp; <strong class="is-uppercase" ><i class="far fa-check-circle"></i> &nbsp; Agregar producto</strong>. También puede agregar el producto mediante la opción &nbsp; <strong class="is-uppercase"><i class="fas fa-search"></i> &nbsp; Buscar producto</strong>. Ademas puede escribir el código de barras y presionar la tecla <strong class="is-uppercase">enter</strong></small>
             </p>
             <form class="pt-6 pb-6" id="sale-barcode-form" autocomplete="off">
                 <div class="columns">
                     <div class="column is-one-quarter">
-                        <button type="button" class="button is-link is-light js-modal-trigger" data-target="modal-js-product" ><i class="fas fa-search"></i> &nbsp; Buscar producto</button>
+                        <button type="button" class="button is-link is-succes js-modal-trigger" data-target="modal-js-product" ><i class="fas fa-search"></i> &nbsp; Buscar producto</button>
                     </div>
                     <div class="column">
                         <div class="field is-grouped">
@@ -69,6 +71,7 @@
                     </div>
                 </div>
             </div>
+            
             <?php
                     unset($_SESSION['venta_codigo_factura']);
                 }
@@ -105,8 +108,8 @@
                                     <input class="input sale_input-cant has-text-centered" value="<?php echo $productos['venta_detalle_cantidad']; ?>" id="sale_input_<?php echo str_replace(" ", "_", $productos['producto_codigo']); ?>" type="text" style="max-width: 80px;">
                                 </div>
                             </td>
-                            <td><?php echo MONEDA_SIMBOLO.number_format($productos['venta_detalle_precio_venta'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." ".MONEDA_NOMBRE; ?></td>
-                            <td><?php echo MONEDA_SIMBOLO.number_format($productos['venta_detalle_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." ".MONEDA_NOMBRE; ?></td>
+                            <td><?php echo MONEDA_SIMBOLO.number_format($productos['venta_detalle_precio_venta'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR); ?></td>
+                            <td><?php echo MONEDA_SIMBOLO.number_format($productos['venta_detalle_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR); ?></td>
                             <td>
                                 <button type="button" class="button is-success is-rounded is-small" onclick="actualizar_cantidad('#sale_input_<?php echo str_replace(" ", "_", $productos['producto_codigo']); ?>','<?php echo $productos['producto_codigo']; ?>')" >
                                     <i class="fas fa-redo-alt fa-fw"></i>
@@ -135,7 +138,7 @@
                                 TOTAL
                             </td>
                             <td class="has-text-weight-bold">
-                                <?php echo MONEDA_SIMBOLO.number_format($_SESSION['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." ".MONEDA_NOMBRE; ?>
+                                <?php echo MONEDA_SIMBOLO.number_format($_SESSION['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR); ?>
                             </td>
                             <td colspan="2"></td>
                         </tr>
@@ -153,8 +156,10 @@
                 </table>
             </div>
         </div>
+        </div>
 
         <div class="column is-one-quarter">
+            <div class="box" style="background-color: #ecececff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 12px;">
             <h2 class="title has-text-centered">Datos de la venta</h2>
             <hr>
 
@@ -167,7 +172,10 @@
 
                 <div class="control mb-5">
                     <label>Fecha</label>
-                    <input class="input" type="date" value="<?php echo date("Y-m-d"); ?>" readonly >
+                    <div class="control has-icons-left">
+                        <span class="icon is-left"><i class="fas fa-calendar-alt"></i></span>
+                        <input class="input" type="date" value="<?php echo date("Y-m-d"); ?>" readonly >
+                    </div>
                 </div>
 
                 <label>Caja de ventas <?php echo CAMPO_OBLIGATORIO; ?></label><br>
@@ -240,15 +248,21 @@
 
                 <div class="control mb-5">
                     <label>Total pagado por cliente <?php echo CAMPO_OBLIGATORIO; ?></label>
-                    <input class="input" type="text" name="venta_abono" id="venta_abono" value="0.00" pattern="[0-9.]{1,25}" maxlength="25" >
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" name="venta_abono" id="venta_abono" value="0.00" pattern="[0-9.]{1,25}" maxlength="25" >
+                        <span class="icon is-left"><i class="fas fa-dollar-sign"></i></span>   
+                    </div>
                 </div>
 
                 <div class="control mb-5">
                     <label>Cambio devuelto a cliente</label>
-                    <input class="input" type="text" id="venta_cambio" value="0.00" readonly >
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" id="venta_cambio" value="0.00" readonly >
+                        <span class="icon is-left"><i class="fas fa-dollar-sign"></i></span>
+                    </div>    
                 </div>
 
-                <h4 class="subtitle is-5 has-text-centered has-text-weight-bold mb-5"><small>TOTAL A PAGAR: <?php echo MONEDA_SIMBOLO.number_format($_SESSION['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." ".MONEDA_NOMBRE; ?></small></h4>
+                <h4 class="subtitle is-5 has-text-centered has-text-weight-bold mb-5"><small>TOTAL A PAGAR: <?php echo MONEDA_SIMBOLO.number_format($_SESSION['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR); ?></small></h4>
 
                 <?php if($_SESSION['venta_total']>0){ ?>
                 <p class="has-text-centered">
@@ -260,9 +274,11 @@
                 </p>
                 <input type="hidden" value="<?php echo number_format($_SESSION['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,""); ?>" id="venta_total_hidden">
             </form>
+            </div>
         </div>
 
     </div>
+    
     <?php }else{ ?>
         <article class="message is-warning">
              <div class="message-header">
@@ -272,6 +288,8 @@
         </article>
     <?php } ?>
 </div>
+</div> <!-- Fin del contenedor principal -->
+
 
 <!-- Modal buscar producto -->
 <div class="modal" id="modal-js-product">
@@ -282,16 +300,18 @@
           <button class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-            <div class="field mt-6 mb-6">
-                <label class="label">Nombre, marca, modelo</label>
-                <div class="control">
-                    <input class="input" type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" name="input_codigo" id="input_codigo" maxlength="30" >
+            <div class="box" style="background-color: #ecececff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 12px;">
+                <div class="field mt-6 mb-6">
+                    <label class="label">Nombre o marca</label>
+                    <div class="control">
+                        <input class="input" type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" name="input_codigo" id="input_codigo" maxlength="30" >
+                    </div>
                 </div>
+                <div class="container" id="tabla_productos"></div>
+                <p class="has-text-centered">
+                    <button type="button" class="button is-link is-light" onclick="buscar_codigo()" ><i class="fas fa-search"></i> &nbsp; Buscar</button>
+                </p>
             </div>
-            <div class="container" id="tabla_productos"></div>
-            <p class="has-text-centered">
-                <button type="button" class="button is-link is-light" onclick="buscar_codigo()" ><i class="fas fa-search"></i> &nbsp; Buscar</button>
-            </p>
         </section>
     </div>
 </div>
@@ -305,16 +325,18 @@
           <button class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-            <div class="field mt-6 mb-6">
-                <label class="label">Documento, Nombre, Apellido, Teléfono</label>
-                <div class="control">
-                    <input class="input" type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" name="input_cliente" id="input_cliente" maxlength="30" >
+            <div class="box" style="background-color: #ecececff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 12px;">
+                <div class="field mt-6 mb-6">
+                    <label class="label">Documento, Nombre, Apellido o Teléfono</label>
+                    <div class="control">
+                        <input class="input" type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" name="input_cliente" id="input_cliente" maxlength="30" >
+                    </div>
                 </div>
+                <div class="container" id="tabla_clientes"></div>
+                <p class="has-text-centered">
+                    <button type="button" class="button is-link is-light" onclick="buscar_cliente()" ><i class="fas fa-search"></i> &nbsp; Buscar</button>
+                </p>
             </div>
-            <div class="container" id="tabla_clientes"></div>
-            <p class="has-text-centered">
-                <button type="button" class="button is-link is-light" onclick="buscar_cliente()" ><i class="fas fa-search"></i> &nbsp; Buscar</button>
-            </p>
         </section>
     </div>
 </div>

@@ -10,7 +10,6 @@
 
 			# Almacenando datos#
 		    $nombre=$this->limpiarCadena($_POST['categoria_nombre']);
-		    $ubicacion=$this->limpiarCadena($_POST['categoria_ubicacion']);
 
 		    # Verificando campos obligatorios #
             if($nombre==""){
@@ -36,18 +35,6 @@
 		        exit();
 		    }
 
-		    if($ubicacion!=""){
-		    	if($this->verificarDatos("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{5,150}",$ubicacion)){
-			    	$alerta=[
-						"tipo"=>"simple",
-						"titulo"=>"Ocurrió un error inesperado",
-						"texto"=>"La UBICACION no coincide con el formato solicitado",
-						"icono"=>"error"
-					];
-					return json_encode($alerta);
-			        exit();
-			    }
-		    }
 
 		    # Verificando nombre #
 		    $check_nombre=$this->ejecutarConsulta("SELECT categoria_nombre FROM categoria WHERE categoria_nombre='$nombre'");
@@ -68,11 +55,6 @@
 					"campo_nombre"=>"categoria_nombre",
 					"campo_marcador"=>":Nombre",
 					"campo_valor"=>$nombre
-				],
-				[
-					"campo_nombre"=>"categoria_ubicacion",
-					"campo_marcador"=>":Ubicacion",
-					"campo_valor"=>$ubicacion
 				]
 			];
 
@@ -142,7 +124,6 @@
 		                <tr>
 		                    <th class="has-text-centered">#</th>
 		                    <th class="has-text-centered">Nombre</th>
-		                    <th class="has-text-centered">Ubicacion</th>
 		                    <th class="has-text-centered">Productos</th>
 		                    <th class="has-text-centered">Actualizar</th>
 		                    <th class="has-text-centered">Eliminar</th>
@@ -159,7 +140,6 @@
 						<tr class="has-text-centered" >
 							<td>'.$contador.'</td>
 							<td>'.$rows['categoria_nombre'].'</td>
-							<td>'.$rows['categoria_ubicacion'].'</td>
 							<td>
 			                    <a href="'.APP_URL.'productCategory/'.$rows['categoria_id'].'/" class="button is-info is-rounded is-small">
 			                    	<i class="fas fa-boxes fa-fw"></i>
@@ -300,7 +280,6 @@
 
 		    # Almacenando datos#
 		    $nombre=$this->limpiarCadena($_POST['categoria_nombre']);
-		    $ubicacion=$this->limpiarCadena($_POST['categoria_ubicacion']);
 
 		    # Verificando campos obligatorios #
             if($nombre==""){
@@ -326,18 +305,7 @@
 		        exit();
 		    }
 
-		    if($ubicacion!=""){
-		    	if($this->verificarDatos("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{5,150}",$ubicacion)){
-			    	$alerta=[
-						"tipo"=>"simple",
-						"titulo"=>"Ocurrió un error inesperado",
-						"texto"=>"La UBICACION no coincide con el formato solicitado",
-						"icono"=>"error"
-					];
-					return json_encode($alerta);
-			        exit();
-			    }
-		    }
+		    
 
 		    # Verificando nombre #
 		    if($datos['categoria_nombre']!=$nombre){
@@ -360,11 +328,6 @@
 					"campo_nombre"=>"categoria_nombre",
 					"campo_marcador"=>":Nombre",
 					"campo_valor"=>$nombre
-				],
-				[
-					"campo_nombre"=>"categoria_ubicacion",
-					"campo_marcador"=>":Ubicacion",
-					"campo_valor"=>$ubicacion
 				]
 			];
 
@@ -376,10 +339,11 @@
 
 			if($this->actualizarDatos("categoria",$categoria_datos_up,$condicion)){
 				$alerta=[
-					"tipo"=>"recargar",
+					"tipo"=>"redireccionar",
 					"titulo"=>"Categoría actualizada",
 					"texto"=>"Los datos de la categoría ".$datos['categoria_nombre']." se actualizaron correctamente",
-					"icono"=>"success"
+					"icono"=>"success",
+					"url"=> APP_URL."categoryList/"
 				];
 			}else{
 				$alerta=[

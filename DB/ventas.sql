@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `ventas`
+-- Base de datos: `ventas`  
 --
 
 -- --------------------------------------------------------
@@ -49,8 +49,7 @@ INSERT INTO `caja` (`caja_id`, `caja_numero`, `caja_nombre`, `caja_efectivo`) VA
 
 CREATE TABLE `categoria` (
   `categoria_id` int(7) NOT NULL,
-  `categoria_nombre` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `categoria_ubicacion` varchar(150) COLLATE utf8_spanish2_ci NOT NULL
+  `categoria_nombre` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -108,7 +107,6 @@ CREATE TABLE `producto` (
   `producto_precio_compra` decimal(30,2) NOT NULL,
   `producto_precio_venta` decimal(30,2) NOT NULL,
   `producto_marca` varchar(35) COLLATE utf8_spanish2_ci NOT NULL,
-  `producto_modelo` varchar(35) COLLATE utf8_spanish2_ci NOT NULL,
   `producto_estado` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
   `producto_foto` varchar(500) COLLATE utf8_spanish2_ci NOT NULL,
   `categoria_id` int(7) NOT NULL
@@ -312,6 +310,3 @@ ALTER TABLE `venta_detalle`
   ADD CONSTRAINT `venta_detalle_ibfk_3` FOREIGN KEY (`venta_codigo`) REFERENCES `venta` (`venta_codigo`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

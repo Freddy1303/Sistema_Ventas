@@ -20,7 +20,7 @@
 					 </div>
 				    <div class="message-body has-text-centered">
 				    	<i class="fas fa-exclamation-triangle fa-2x"></i><br>
-						Debes de introducir el Nombre, Marca o Modelo del producto
+						Debes de introducir el Nombre o Marca del producto
 				    </div>
 				</article>';
 				exit();

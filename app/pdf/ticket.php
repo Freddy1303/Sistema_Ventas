@@ -94,19 +94,19 @@
 
         $pdf->Cell(18,5,iconv("UTF-8", "ISO-8859-1",""),0,0,'C');
         $pdf->Cell(22,5,iconv("UTF-8", "ISO-8859-1","TOTAL A PAGAR"),0,0,'C');
-        $pdf->Cell(32,5,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR).' '.MONEDA_NOMBRE),0,0,'C');
+        $pdf->Cell(32,5,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),0,0,'C');
 
         $pdf->Ln(5);
         
         $pdf->Cell(18,5,iconv("UTF-8", "ISO-8859-1",""),0,0,'C');
         $pdf->Cell(22,5,iconv("UTF-8", "ISO-8859-1","TOTAL PAGADO"),0,0,'C');
-        $pdf->Cell(32,5,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_pagado'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR).' '.MONEDA_NOMBRE),0,0,'C');
+        $pdf->Cell(32,5,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_pagado'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),0,0,'C');
 
         $pdf->Ln(5);
 
         $pdf->Cell(18,5,iconv("UTF-8", "ISO-8859-1",""),0,0,'C');
         $pdf->Cell(22,5,iconv("UTF-8", "ISO-8859-1","CAMBIO"),0,0,'C');
-        $pdf->Cell(32,5,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_cambio'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR).' '.MONEDA_NOMBRE),0,0,'C');
+        $pdf->Cell(32,5,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($datos_venta['venta_cambio'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),0,0,'C');
 
         $pdf->Ln(10);
 
@@ -117,10 +117,7 @@
 
         $pdf->Ln(9);
 
-        $pdf->Code128(5,$pdf->GetY(),$datos_venta['venta_codigo'],70,20);
-        $pdf->SetXY(0,$pdf->GetY()+21);
-        $pdf->SetFont('Arial','',14);
-        $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1",$datos_venta['venta_codigo']),0,'C',false);
+        
         
 		$pdf->Output("I","Ticket_Nro".$datos_venta['venta_id'].".pdf",true);
 
