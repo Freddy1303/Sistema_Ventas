@@ -415,7 +415,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Ocurrió un error inesperado',
-                text: 'Debes de introducir el Nombre, Marca o Modelo del producto',
+                text: 'Debes de introducir el Nombre o Marca del producto',
                 confirmButtonText: 'Aceptar'
             });
         }
