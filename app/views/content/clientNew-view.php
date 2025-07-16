@@ -1,7 +1,6 @@
 <div class="container is-fluid mb-6">
-	<h1 class="title is-3 has-text-weight-bold has-text-primary">
-		<i class="fas fa-male"></i> &nbsp; Nuevo cliente
-	</h1>
+	<h1 class="title has-text-weight-bold is-uppercase has-text">Clientes</h1>
+	<h2 class="subtitle has-text-weight-bold has-text"><i class="fas fa-male"></i> &nbsp; Nuevo cliente</h2>
 </div>
 
 <div class="container pb-6 pt-6">

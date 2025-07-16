@@ -140,12 +140,34 @@
 		$venta_detalle=$venta_detalle->fetchAll();
 
 		foreach($venta_detalle as $detalle){
-			$pdf->Cell(100,7,iconv("UTF-8", "ISO-8859-1",$ins_venta->limitarCadena($detalle['venta_detalle_descripcion'],80,"...")),'L',0,'C');
-			$pdf->Cell(15,7,iconv("UTF-8", "ISO-8859-1",$detalle['venta_detalle_cantidad']),'L',0,'C');
-			$pdf->Cell(32,7,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($detalle['venta_detalle_precio_venta'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),'L',0,'C');
-			$pdf->Cell(34,7,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($detalle['venta_detalle_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),'LR',0,'C');
-			$pdf->Ln(7);
+			// Ancho de cada columna
+			$w_desc = 100;
+			$w_cant = 15;
+			$w_precio = 32;
+			$w_total = 34;
+
+			// Guardar posición actual
+			$x = $pdf->GetX();
+			$y = $pdf->GetY();
+
+			// Calcular alto de la MultiCell de descripción
+			$pdf->SetXY($x, $y);
+			$pdf->MultiCell($w_desc, 7, iconv("UTF-8", "ISO-8859-1", $detalle['venta_detalle_descripcion']), 0, 'L');
+			$alto_fila = $pdf->GetY() - $y;
+
+			// Volver a la posición inicial
+			$pdf->SetXY($x + $w_desc, $y);
+
+			// Dibujar las otras celdas con la misma altura
+			$pdf->Cell($w_cant, $alto_fila, iconv("UTF-8", "ISO-8859-1", $detalle['venta_detalle_cantidad']), 1, 0, 'C');
+			$pdf->Cell($w_precio, $alto_fila, iconv("UTF-8", "ISO-8859-1", MONEDA_SIMBOLO . number_format($detalle['venta_detalle_precio_venta'], MONEDA_DECIMALES, MONEDA_SEPARADOR_DECIMAL, MONEDA_SEPARADOR_MILLAR)), 1, 0, 'C');
+			$pdf->Cell($w_total, $alto_fila, iconv("UTF-8", "ISO-8859-1", MONEDA_SIMBOLO . number_format($detalle['venta_detalle_total'], MONEDA_DECIMALES, MONEDA_SEPARADOR_DECIMAL, MONEDA_SEPARADOR_MILLAR)), 1, 0, 'C');
+
+			// Salto a la siguiente línea
+			$pdf->Ln($alto_fila);
 		}
+
+
 
 		$pdf->SetFont('Arial','B',9);
 		$pdf->Cell(100,7,iconv("UTF-8", "ISO-8859-1",''),'T',0,'C');

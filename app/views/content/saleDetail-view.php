@@ -59,17 +59,17 @@
 
 			<div class="full-width sale-details text-condensedLight">
 				<div class="has-text-weight-bold">Total</div>
-				<span class="has-text-link"><?php echo MONEDA_SIMBOLO.number_format($datos_venta['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR).' '.MONEDA_NOMBRE; ?></span>
+				<span class="has-text-link"><?php echo MONEDA_SIMBOLO.number_format($datos_venta['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR); ?></span>
 			</div>
 
 			<div class="full-width sale-details text-condensedLight">
 				<div class="has-text-weight-bold">Pagado</div>
-				<span class="has-text-link"><?php echo MONEDA_SIMBOLO.number_format($datos_venta['venta_pagado'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR).' '.MONEDA_NOMBRE; ?></span>
+				<span class="has-text-link"><?php echo MONEDA_SIMBOLO.number_format($datos_venta['venta_pagado'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR); ?></span>
 			</div>
 
 			<div class="full-width sale-details text-condensedLight">
 				<div class="has-text-weight-bold">Cambio</div>
-				<span class="has-text-link"><?php echo MONEDA_SIMBOLO.number_format($datos_venta['venta_cambio'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR).' '.MONEDA_NOMBRE; ?></span>
+				<span class="has-text-link"><?php echo MONEDA_SIMBOLO.number_format($datos_venta['venta_cambio'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR); ?></span>
 			</div>
 
 		</div>
@@ -104,8 +104,8 @@
                             <td><?php echo $cc; ?></td>
                             <td><?php echo $detalle['venta_detalle_descripcion']; ?></td>
                             <td><?php echo $detalle['venta_detalle_cantidad']; ?></td>
-                            <td><?php echo MONEDA_SIMBOLO.number_format($detalle['venta_detalle_precio_venta'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." ".MONEDA_NOMBRE; ?></td>
-                            <td><?php echo MONEDA_SIMBOLO.number_format($detalle['venta_detalle_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." ".MONEDA_NOMBRE; ?></td>
+                            <td><?php echo MONEDA_SIMBOLO.number_format($detalle['venta_detalle_precio_venta'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." "; ?></td>
+                            <td><?php echo MONEDA_SIMBOLO.number_format($detalle['venta_detalle_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." "; ?></td>
                         </tr>
                         <?php
                                 $cc++;
@@ -117,7 +117,7 @@
                                 TOTAL
                             </td>
                             <td class="has-text-weight-bold">
-                                <?php echo MONEDA_SIMBOLO.number_format($datos_venta['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." ".MONEDA_NOMBRE; ?>
+                                <?php echo MONEDA_SIMBOLO.number_format($datos_venta['venta_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)." "; ?>
                             </td>
                         </tr>
                         <?php

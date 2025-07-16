@@ -1,5 +1,5 @@
 <div class="container is-fluid mb-6">
-	<h1 class="title is-3 has-text-weight-bold has-text-primary">
+	<h1 class="title has-text-weight-bold is-uppercase has-text">
 		<i class="fas fa-store-alt"></i> &nbsp; Datos de empresa
 	</h1>
 </div>

@@ -15,7 +15,7 @@
 				<div class="column is-half">
 					<label class="label">Nombre <?php echo CAMPO_OBLIGATORIO; ?></label>
 					<div class="control has-icons-left">
-						<input class="input" type="text" name="categoria_nombre" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{4,50}" maxlength="50" required>
+						<input class="input" type="text" name="categoria_nombre" maxlength="50" required>
 						<span class="icon is-left"><i class="fas fa-tag"></i></span>
 					</div>
 				</div>

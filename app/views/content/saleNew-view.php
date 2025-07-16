@@ -1,7 +1,6 @@
 <div class="container is-fluid mb-6">
-	<h1 class="title is-3 has-text-weight-bold has-text-primary">
-        <i class="fas fa-cart-plus fa-fw"></i> &nbsp;Nueva venta
-    </h1>
+	<h1 class="title has-text-weight-bold is-uppercase has-text">Ventas</h1>
+	<h2 class="subtitle has-text-weight-bold has-text"><i class="fas fa-cart-plus fa-fw"></i> &nbsp; Nueva venta</h2>
 </div>
 
 <div class="container pb-6 pt-6">

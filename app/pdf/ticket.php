@@ -80,13 +80,30 @@
         $venta_detalle=$venta_detalle->fetchAll();
         
         foreach($venta_detalle as $detalle){
-            $pdf->MultiCell(0,4,iconv("UTF-8", "ISO-8859-1",$detalle['venta_detalle_descripcion']),0,'C',false);
-            $pdf->Cell(18,4,iconv("UTF-8", "ISO-8859-1",$detalle['venta_detalle_cantidad']),0,0,'C');
-            $pdf->Cell(22,4,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($detalle['venta_detalle_precio_venta'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),0,0,'C');
-            $pdf->Cell(32,4,iconv("UTF-8", "ISO-8859-1",MONEDA_SIMBOLO.number_format($detalle['venta_detalle_total'],MONEDA_DECIMALES,MONEDA_SEPARADOR_DECIMAL,MONEDA_SEPARADOR_MILLAR)),0,0,'C');
-            $pdf->Ln(4);
-            $pdf->Ln(3);
-        }
+        // Anchos de columnas
+        $w_desc = 72;
+        $w_cant = 18;
+        $w_precio = 22;
+        $w_total = 32;
+
+        // Guardar posición actual
+        $x = $pdf->GetX();
+        $y = $pdf->GetY();
+
+        // Calcular altura del MultiCell (descripción)
+        $pdf->SetXY($x, $y);
+        $pdf->MultiCell($w_desc, 4, iconv("UTF-8", "ISO-8859-1", $detalle['venta_detalle_descripcion']), 0, 'C');
+        $altura = $pdf->GetY() - $y;
+
+        // Volver y dibujar Cant., Precio, Total con esa misma altura
+        $pdf->SetXY($x, $y + $altura);
+        $pdf->Cell($w_cant, $altura, iconv("UTF-8", "ISO-8859-1", $detalle['venta_detalle_cantidad']), 0, 0, 'C');
+        $pdf->Cell($w_precio, $altura, iconv("UTF-8", "ISO-8859-1", MONEDA_SIMBOLO . number_format($detalle['venta_detalle_precio_venta'], MONEDA_DECIMALES, MONEDA_SEPARADOR_DECIMAL, MONEDA_SEPARADOR_MILLAR)), 0, 0, 'C');
+        $pdf->Cell($w_total, $altura, iconv("UTF-8", "ISO-8859-1", MONEDA_SIMBOLO . number_format($detalle['venta_detalle_total'], MONEDA_DECIMALES, MONEDA_SEPARADOR_DECIMAL, MONEDA_SEPARADOR_MILLAR)), 0, 0, 'C');
+
+        $pdf->Ln($altura + 2); // Salto
+    }
+
 
         $pdf->Cell(72,5,iconv("UTF-8", "ISO-8859-1","-------------------------------------------------------------------"),0,0,'C');
 

@@ -3,7 +3,7 @@
 		$id = $insLogin->limpiarCadena($url[1]);
 		if($id == $_SESSION['id']){ 
 	?>
-	<h1 class="title is-3 has-text-primary"><i class="fas fa-user-cog"></i> &nbsp; Mi cuenta</h1>
+	<h1 class="title has-text-weight-bold is-uppercase has-text"><i class="fas fa-user-cog"></i> &nbsp; Mi cuenta</h1>
 	<h2 class="subtitle"><i class="fas fa-sync-alt"></i> &nbsp; Actualizar cuenta</h2>
 	<?php }else{ ?>
 	<h1 class="title is-3 has-text-link"><i class="fas fa-users-cog"></i> &nbsp; Usuarios</h1>

@@ -1,5 +1,5 @@
-<div class="container is-fluid">
-  	<h1 class="title is-3 has-text-weight-bold has-text-primary">
+<div class="container is-fluid mb-6">
+	<h1 class="title has-text-weight-bold is-uppercase has-text">
 		<i class="fas fa-home"></i> &nbsp; Inicio
 	</h1>
 </div>
