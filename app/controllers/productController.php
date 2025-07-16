@@ -455,61 +455,66 @@
 				$contador=$inicio+1;
 				$pag_inicio=$inicio+1;
 				foreach($datos as $rows){
-					$tabla.='
-		            <article class="media pb-3 pt-3">
-		                <figure class="media-left">
-		                    <p class="image is-64x64">';
-		                        if(is_file("./app/views/productos/".$rows['producto_foto'])){
-		                            $tabla.='<img src="'.APP_URL.'app/views/productos/'.$rows['producto_foto'].'">';
-		                        }else{
-		                            $tabla.='<img src="'.APP_URL.'app/views/productos/default.png">';
-		                        }
-		            $tabla.='</p>
-		                </figure>
-		                <div class="media-content">
-		                    <div class="content">
-		                        <p>
-		                            <strong>'.$contador.' - '.$rows['producto_nombre'].'</strong><br>
-		                            <strong>CODIGO:</strong> '.$rows['producto_codigo'].', 
-		                            <strong>PRECIO:</strong> $'.$rows['producto_precio_venta'].', 
-		                            <strong>STOCK:</strong> '.$rows['producto_stock_total'].', 
-		                            <strong>CATEGORIA:</strong> '.$rows['categoria_nombre'].'
-		                        </p>
-		                    </div>
-		                    <div class="has-text-right">
-		                        <a href="'.APP_URL.'productPhoto/'.$rows['producto_id'].'/" class="button is-info is-rounded is-small">
-			                    	<i class="far fa-image fa-fw"></i>
-			                    </a>
+					$tabla .= '
+					<div class="box" style="background-color: #ecececff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 10px; margin-bottom: 1.5rem;">
+						<article class="media">
+							<figure class="media-left">
+								<p class="image is-64x64">';
+									if(is_file("./app/views/productos/".$rows['producto_foto'])){
+										$tabla .= '<img class="is-rounded" src="'.APP_URL.'app/views/productos/'.$rows['producto_foto'].'">';
+									} else {
+										$tabla .= '<img class="is-rounded" src="'.APP_URL.'app/views/productos/default.png">';
+									}
+					$tabla .= '</p>
+							</figure>
+							<div class="media-content">
+								<div class="content">
+									<p class="has-text-weight-semibold mb-2">
+										'.$contador.' - '.$rows['producto_nombre'].'
+									</p>
+									<div class="columns is-multiline is-mobile mt-2">
+										<div class="column is-6-tablet is-12-mobile mb-2">
+											<p><strong class="has-text-dark">🆔 CÓDIGO:</strong> '.$rows['producto_codigo'].'</p>
+										</div>
+										<div class="column is-6-tablet is-12-mobile mb-2">
+											<p><strong class="has-text-dark">💲 PRECIO:</strong> $'.$rows['producto_precio_venta'].'</p>
+										</div>
+										<div class="column is-6-tablet is-12-mobile mb-2">
+											<p><strong class="has-text-dark">📦 STOCK:</strong> '.$rows['producto_stock_total'].'</p>
+										</div>
+										<div class="column is-6-tablet is-12-mobile mb-2">
+											<p><strong class="has-text-dark">🏷️ CATEGORÍA:</strong> '.$rows['categoria_nombre'].'</p>
+										</div>
+									</div>
 
-		                        <a href="'.APP_URL.'productUpdate/'.$rows['producto_id'].'/" class="button is-success is-rounded is-small">
-		                        	<i class="fas fa-sync fa-fw"></i>
-		                        </a>
-								
-								<a href="#" class="button is-warning is-rounded is-small btn-agregar-stock" 
-									data-id="'.$rows['producto_id'].'" 
-									data-nombre="'.$rows['producto_nombre'].'">
-									<i class="fas fa-plus fa-fw"></i>
-								</a>
-
-
-		                        <form class="FormularioAjax is-inline-block" action="'.APP_URL.'app/ajax/productoAjax.php" method="POST" autocomplete="off" >
-
-			                		<input type="hidden" name="modulo_producto" value="eliminar">
-			                		<input type="hidden" name="producto_id" value="'.$rows['producto_id'].'">
-
-			                    	<button type="submit" class="button is-danger is-rounded is-small">
-			                    		<i class="far fa-trash-alt fa-fw"></i>
-			                    	</button>
-			                    </form>
-		                    </div>
-		                </div>
-		            </article>
-
-
-		            <hr>
-		            ';
+								</div>
+								<div class="has-text-right mt-3">
+									<a href="'.APP_URL.'productPhoto/'.$rows['producto_id'].'/" class="button is-info is-rounded is-small mr-1">
+										<i class="far fa-image fa-fw"></i>
+									</a>
+									<a href="'.APP_URL.'productUpdate/'.$rows['producto_id'].'/" class="button is-success is-rounded is-small mr-1">
+										<i class="fas fa-sync fa-fw"></i>
+									</a>
+									<a href="#" class="button is-warning is-rounded is-small mr-1 btn-agregar-stock"
+										data-id="'.$rows['producto_id'].'"
+										data-nombre="'.$rows['producto_nombre'].'">
+										<i class="fas fa-plus fa-fw"></i>
+									</a>
+									<form class="FormularioAjax is-inline-block" action="'.APP_URL.'app/ajax/productoAjax.php" method="POST" autocomplete="off" style="display:inline-block;">
+										<input type="hidden" name="modulo_producto" value="eliminar">
+										<input type="hidden" name="producto_id" value="'.$rows['producto_id'].'">
+										<button type="submit" class="button is-danger is-rounded is-small">
+											<i class="far fa-trash-alt fa-fw"></i>
+										</button>
+									</form>
+								</div>
+							</div>
+						</article>
+					</div>';
 					$contador++;
 				}
+
+
 				$pag_final=$contador-1;
 			}else{
 				if($total>=1){

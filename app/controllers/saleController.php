@@ -99,7 +99,7 @@
                 $alerta=[
 					"tipo"=>"simple",
 					"titulo"=>"Ocurrió un error inesperado",
-					"texto"=>"No hemos encontrado el producto con código de barras : '$codigo'",
+					"texto"=>"No hemos encontrado el producto con código : '$codigo'",
 					"icono"=>"error"
 				];
 				return json_encode($alerta);
@@ -252,7 +252,7 @@
                 $alerta=[
 					"tipo"=>"simple",
 					"titulo"=>"Ocurrió un error inesperado",
-					"texto"=>"No hemos encontrado el producto con código de barras : '$codigo'",
+					"texto"=>"No hemos encontrado el producto con código : '$codigo'",
 					"icono"=>"error"
 				];
 				return json_encode($alerta);

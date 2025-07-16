@@ -16,7 +16,7 @@
         <div class="column pb-6">
             <div class="box" style="background-color: #ecececff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 12px;">
             <p class="has-text-centered pt-6 pb-6">
-                <small>Para agregar productos debe de digitar el código de barras en el campo "Código de producto" y luego presionar &nbsp; <strong class="is-uppercase" ><i class="far fa-check-circle"></i> &nbsp; Agregar producto</strong>. También puede agregar el producto mediante la opción &nbsp; <strong class="is-uppercase"><i class="fas fa-search"></i> &nbsp; Buscar producto</strong>. Ademas puede escribir el código de barras y presionar la tecla <strong class="is-uppercase">enter</strong></small>
+                <small>Para agregar productos debe de digitar el código en el campo "Código de producto" y luego presionar &nbsp; <strong class="is-uppercase" ><i class="far fa-check-circle"></i> &nbsp; Agregar producto</strong>. También puede agregar el producto mediante la opción &nbsp; <strong class="is-uppercase"><i class="fas fa-search"></i> &nbsp; Buscar producto</strong>. Ademas puede escribir el código de barras y presionar la tecla <strong class="is-uppercase">enter</strong></small>
             </p>
             <form class="pt-6 pb-6" id="sale-barcode-form" autocomplete="off">
                 <div class="columns">
@@ -26,7 +26,7 @@
                     <div class="column">
                         <div class="field is-grouped">
                             <p class="control is-expanded">
-                                <input class="input" type="text" pattern="[a-zA-Z0-9- ]{1,70}" maxlength="70"  autofocus="autofocus" placeholder="Código de barras" id="sale-barcode-input" >
+                                <input class="input" type="text" pattern="[a-zA-Z0-9- ]{1,70}" maxlength="70"  autofocus="autofocus" placeholder="Código de producto" id="sale-barcode-input" >
                             </p>
                             <a class="control">
                                 <button type="submit" class="button is-info">
@@ -292,53 +292,69 @@
 
 <!-- Modal buscar producto -->
 <div class="modal" id="modal-js-product">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title is-uppercase"><i class="fas fa-search"></i> &nbsp; Buscar producto</p>
-          <button class="delete" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-            <div class="box" style="background-color: #ecececff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 12px;">
-                <div class="field mt-6 mb-6">
-                    <label class="label">Nombre o marca</label>
-                    <div class="control">
-                        <input class="input" type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" name="input_codigo" id="input_codigo" maxlength="30" >
-                    </div>
-                </div>
-                <div class="container" id="tabla_productos"></div>
-                <p class="has-text-centered">
-                    <button type="button" class="button is-link is-light" onclick="buscar_codigo()" ><i class="fas fa-search"></i> &nbsp; Buscar</button>
-                </p>
-            </div>
-        </section>
-    </div>
+  <div class="modal-background"></div>
+  <div class="modal-card" style="background-color: #ecececff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+    <header class="modal-card-head has-background-primary" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
+      <p class="modal-card-title has-text-white is-uppercase">
+        <i class="fas fa-search mr-2"></i> Buscar producto
+      </p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body p-5">
+      <div class="field mb-5">
+        <label class="label has-text-weight-medium">Nombre o marca</label>
+        <div class="control has-icons-left">
+          <input class="input is-rounded" type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" name="input_codigo" id="input_codigo" maxlength="30" placeholder="Ej. Etna">
+          <span class="icon is-left">
+            <i class="fas fa-box"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="container" id="tabla_productos"></div>
+
+      <div class="has-text-centered mt-4">
+        <button type="button" class="button is-link is-light is-rounded px-5" onclick="buscar_codigo()">
+          <i class="fas fa-search mr-2"></i> Buscar
+        </button>
+      </div>
+    </section>
+  </div>
 </div>
+
 
 <!-- Modal buscar cliente -->
 <div class="modal" id="modal-js-client">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title is-uppercase"><i class="fas fa-search"></i> &nbsp; Buscar y agregar cliente</p>
-          <button class="delete" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-            <div class="box" style="background-color: #ecececff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 12px;">
-                <div class="field mt-6 mb-6">
-                    <label class="label">Documento, Nombre, Apellido o Teléfono</label>
-                    <div class="control">
-                        <input class="input" type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" name="input_cliente" id="input_cliente" maxlength="30" >
-                    </div>
-                </div>
-                <div class="container" id="tabla_clientes"></div>
-                <p class="has-text-centered">
-                    <button type="button" class="button is-link is-light" onclick="buscar_cliente()" ><i class="fas fa-search"></i> &nbsp; Buscar</button>
-                </p>
-            </div>
-        </section>
-    </div>
+  <div class="modal-background"></div>
+  <div class="modal-card" style="background-color: #ecececff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+    <header class="modal-card-head has-background-primary" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
+      <p class="modal-card-title has-text-white is-uppercase">
+        <i class="fas fa-search mr-2"></i> Buscar y agregar cliente
+      </p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body p-5">
+      <div class="field mb-5">
+        <label class="label has-text-weight-medium">Documento, Nombre, Apellido o Teléfono</label>
+        <div class="control has-icons-left">
+          <input class="input is-rounded" type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,30}" name="input_cliente" id="input_cliente" maxlength="30" placeholder="Ej. 12345678 o Freddy Lopez">
+          <span class="icon is-left">
+            <i class="fas fa-id-card"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="container" id="tabla_clientes"></div>
+
+      <div class="has-text-centered mt-4">
+        <button type="button" class="button is-link is-light is-rounded px-5" onclick="buscar_cliente()">
+          <i class="fas fa-search mr-2"></i> Buscar
+        </button>
+      </div>
+    </section>
+  </div>
 </div>
+
 
 <script>
 

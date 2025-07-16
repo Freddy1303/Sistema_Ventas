@@ -27,11 +27,21 @@
 	$ingresos = [];
 	$ganancias = [];
 
+	$nombresMeses = [
+		'01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
+		'05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
+		'09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
+	];
+
 	while ($fila = $consulta_balance->fetch(PDO::FETCH_ASSOC)) {
-	    $meses[] = $fila['mes'];
-	    $ingresos[] = $fila['ingresos'];
-	    $ganancias[] = $fila['ingresos'] - $fila['costos'];
+		$partes = explode('-', $fila['mes']); // Ejemplo: "2025-01" → ["2025", "01"]
+		$nombreMes = $nombresMeses[$partes[1]] . ' ' . $partes[0]; // "Enero 2025"
+		
+		$meses[] = $nombreMes;
+		$ingresos[] = (float) $fila['ingresos'];
+		$ganancias[] = (float) $fila['ingresos'] - (float) $fila['costos'];
 	}
+
 ?>
 <div class="container pb-6 pt-6">
 
@@ -94,7 +104,6 @@
 					<div class="column is-3">
 						<div class="box has-background-warning-light has-text-centered">
 							<p class="title is-5"><?php echo $producto['producto_nombre']; ?></p>
-							<p class="subtitle is-6"><?php echo $producto['producto_codigo']; ?></p>
 							<span class="tag is-danger is-medium">Stock: <?php echo $producto['producto_stock_total']; ?></span>
 						</div>
 					</div>
@@ -117,8 +126,10 @@
 	</style>
 
 	<div class="container pb-6 mt-6">
-		<h3 class="title has-text-centered wordart-title">Balance mensual</h3>
-		<canvas id="graficoBalance" height="100"></canvas>
+		<div class="box" style="background-color: #ecececff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border-radius: 10px; padding: 2rem;">
+			<h3 class="title has-text-centered wordart-title">Balance mensual</h3>
+			<canvas id="graficoBalance" height="100"></canvas>
+		</div>
 	</div>
 
 </div>
@@ -137,16 +148,16 @@ const grafico = new Chart(ctx, {
             {
                 label: 'Ingresos',
                 data: <?php echo json_encode($ingresos); ?>,
-                borderColor: 'rgba(54, 162, 235, 1)',
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(4, 104, 9, 1)',
+                backgroundColor: 'rgba(96, 223, 57, 0.2)',
                 tension: 0.4,
                 fill: true
             },
             {
                 label: 'Ganancias',
                 data: <?php echo json_encode($ganancias); ?>,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(7, 25, 128, 1)',
+                backgroundColor: 'rgba(46, 103, 168, 0.2)',
                 tension: 0.4,
                 fill: true
             }
@@ -155,15 +166,23 @@ const grafico = new Chart(ctx, {
     options: {
         responsive: true,
         scales: {
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    callback: function(value) {
-                        return 'S/.' + value;
-                    }
-                }
-            }
-        },
+			y: {
+				beginAtZero: true,
+				ticks: {
+					callback: function(value) {
+						return 'S/.' + value;
+					}
+				}
+			},
+			x: {
+				ticks: {
+					padding: 10,
+					autoSkip: false,
+					maxRotation: 45,
+					minRotation: 30,
+				}
+			}
+		},
         plugins: {
             legend: {
                 position: 'top',

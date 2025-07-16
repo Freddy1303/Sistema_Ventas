@@ -18,37 +18,45 @@
 
 <div class="modal" id="modalAgregarStock">
   <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Agregar stock</p>
+  <div class="modal-card" style="background-color: #ecececff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+    <header class="modal-card-head has-background-primary" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
+      <p class="modal-card-title has-text-white">
+        <i class="fas fa-plus-circle mr-2"></i> Agregar stock
+      </p>
       <button class="delete" aria-label="close" id="cerrarModalStock"></button>
     </header>
-    <section class="modal-card-body">
+    <section class="modal-card-body p-5">
       <form id="formAgregarStock" class="FormularioAjax" action="<?php echo APP_URL; ?>app/ajax/productoAjax.php" method="POST" autocomplete="off">
+        
         <input type="hidden" name="producto_id" id="stock_producto_id">
-        <div class="field">
-          <label class="label">Producto</label>
-          <p id="stock_producto_nombre" class="has-text-weight-semibold"></p>
+        
+        <div class="field mb-4">
+          <label class="label has-text-weight-medium">Producto</label>
+          <p id="stock_producto_nombre" class="has-text-weight-semibold has-text-grey-dark"></p>
         </div>
-        <div class="field">
-          <label class="label">Cantidad a agregar</label>
-          <div class="control">
-            <input class="input" type="number" name="cantidad" min="1" required>
+
+        <div class="field mb-5">
+          <label class="label has-text-weight-medium">Cantidad a agregar</label>
+          <div class="control has-icons-left">
+            <input class="input is-rounded" type="number" name="cantidad" min="1" required placeholder="Ej. 10">
+            <span class="icon is-left">
+              <i class="fas fa-sort-numeric-up"></i>
+            </span>
           </div>
         </div>
+
         <input type="hidden" name="modulo_producto" value="agregar_stock">
-        <div class="has-text-right mt-3">
-          <button type="submit" class="button is-success">Guardar</button>
+        
+        <div class="has-text-right">
+          <button type="submit" class="button is-success is-rounded px-5">
+            <i class="fas fa-save mr-2"></i> Guardar
+          </button>
         </div>
       </form>
     </section>
   </div>
 </div>
 
-
-<script>
-  console.log("ajax.js CARGADO"); // ← esto debería mostrarse en consola
-</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
